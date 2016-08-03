@@ -1,9 +1,13 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-have_app = ENV["RAILSAPP_DIR"] && Dir.exist?(ENV["RAILSAPP_DIR"])
+system("scripts/install-trigger-plugin.sh")
 
 Vagrant.configure(2) do |config|
+
+  config.trigger.before :up do
+    run  "scripts/host-prereqs.sh"
+  end
 
   config.vm.box = "peichman-umd/ruby"
 
@@ -11,14 +15,11 @@ Vagrant.configure(2) do |config|
 
   # config.vm.network "private_network", ip: "192.168.33.10"
 
-  if have_app
-    config.vm.synced_folder ENV["RAILSAPP_DIR"], "/apps/src"
-  end
+  config.vm.synced_folder "/apps/git/fcrepo-search", "/apps/services/fcrepo-search"
 
   config.vm.provision "shell", path: "scripts/passenger.sh", privileged: true
   config.vm.provision "shell", path: "scripts/nodejs.sh", privileged: true
   config.vm.provision "shell", path: "scripts/firewall.sh", privileged: true
-  if have_app
-    config.vm.provision "shell", path: "scripts/railsapp.sh", privileged: false
-  end
+  config.vm.provision "shell", path: "scripts/railsapp.sh", privileged: false
+  config.vm.provision "file", source: 'files/fcrepo-search.env', destination: '/apps/services/fcrepo-search/.env'
 end
