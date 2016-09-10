@@ -5,4 +5,6 @@ sudo systemctl restart httpd
 
 cd /apps/services/fcrepo-search
 bundle install
-bin/rake db:migrate
+bin/rake db:migrate RAILS_ENV=vagrant
+bin/rake db:seed RAILS_ENV=vagrant
+

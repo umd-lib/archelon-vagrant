@@ -17,9 +17,12 @@ Vagrant.configure(2) do |config|
 
   config.vm.synced_folder "/apps/git/fcrepo-search", "/apps/services/fcrepo-search"
 
+  config.vm.provision "shell", inline: "yum -y install git"
+
   config.vm.provision "shell", path: "scripts/passenger.sh", privileged: true
   config.vm.provision "shell", path: "scripts/nodejs.sh", privileged: true
   config.vm.provision "shell", path: "scripts/firewall.sh", privileged: true
-  config.vm.provision "shell", path: "scripts/railsapp.sh", privileged: false
   config.vm.provision "file", source: 'files/fcrepo-search.env', destination: '/apps/services/fcrepo-search/.env'
+  config.vm.provision "file", source: 'files/seeds.rb', destination: '/apps/services/fcrepo-search/db/seeds/vagrant.rb'
+  config.vm.provision "shell", path: "scripts/railsapp.sh", privileged: false
 end
