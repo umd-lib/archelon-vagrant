@@ -15,7 +15,7 @@ server if necessary.
 **Warning:** Without a working solr url, the fcrepo-search will not function.
 
 ### fcrepo-search 
-The [fcrepo-search][2] repo will be automatically checked into the host machine, if the 
+The [fcrepo-search][2] repo will be automatically checked out onto the host machine, if the 
 vagrant finds that the `/apps/git/fcrepo-search` directory does not exist when you 
 run `vagrant up` 
 
@@ -27,7 +27,7 @@ run `vagrant up`
 > vagrant up
 ```
 
-You should be able to access the fcrepo-search app at [http://localhost:8000/][3]
+You should be able to access the fcrepo-search app at <http://192.168.44.14>.
 
 ## Details
 
@@ -38,11 +38,9 @@ Base box: [peichman-umd/ruby (1.0.0)][4] with:
 * Ruby 2.2.4
 * Rails 4.2.6
 
-Port 80 on the guest is forwarded to 8000 on the host.
-
 Installs the most recent version of [Phusion Passenger][5] (5.0.26 as of March
 29, 2016). Configures Apache with mod_passenger to serve the Rails app found in
-`/apps/src` on port 80.
+`/apps/services/fcrepo-search` on port 80.
 
 Also [installs NodeJS and NPM][6], for compiling Javascript resources in Rails'
 asset pipeline. This relieves the need for the Rails app to include "therubyracer"
@@ -50,7 +48,6 @@ or similar gems in its Gemfile.
 
 [1]: https://github.com//umd-lib/fcrepo-vagrant
 [2]: https://github.com//umd-lib/fcrepo-search
-[3]: http://localhost:8000/
 [4]: https://atlas.hashicorp.com/peichman-umd/boxes/ruby/versions/1.0.0
 [5]: https://www.phusionpassenger.com/
 [6]: https://www.phusionpassenger.com/library/walkthroughs/deploy/ruby/ownserver/apache/oss/install_language_runtime.html#optional-install-node-js-if-you-re-using-rails
