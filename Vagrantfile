@@ -18,9 +18,11 @@ Vagrant.configure(2) do |config|
   # system packages
   config.vm.provision 'puppet'
 
+  # firewall
   config.vm.provision 'shell', path: 'scripts/openports.sh', args: [80]
-  config.vm.provision "shell", path: "scripts/passenger.sh", privileged: true
-  config.vm.provision "shell", path: "scripts/nodejs.sh", privileged: true
+  # mod_passenger
+  config.vm.provision "shell", path: "scripts/passenger.sh"
+  # Rails app config
   config.vm.provision "file", source: 'files/fcrepo-search.env', destination: '/apps/services/fcrepo-search/.env'
   config.vm.provision "file", source: 'files/seeds.rb', destination: '/apps/services/fcrepo-search/db/seeds/vagrant.rb'
   config.vm.provision "shell", path: "scripts/railsapp.sh", privileged: false
