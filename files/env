@@ -1,0 +1,7 @@
+# vim:ft=sh
+
+# SERVER ENVIRONMENT
+
+export SERVER_NAME=archelonlocal
+export SERVICE_USER=vagrant
+export SERVICE_GROUP=vagrant

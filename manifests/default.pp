@@ -5,6 +5,9 @@ Package {
 package { "httpd":
   ensure => present,
 }
+package { "mod_ssl":
+  ensure => present,
+}
 package { "epel-release":
   ensure => present,
 }
