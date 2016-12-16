@@ -47,7 +47,7 @@ Base box: [peichman-umd/ruby (1.0.0)][4] with:
 
 Installs the most recent version of [Phusion Passenger][5] (5.0.26 as of March
 29, 2016). Configures Apache with mod_passenger to serve the Rails app found in
-`/apps/archelon/archelon` on port 80.
+`/apps/archelon/src` on port 80.
 
 Also [installs NodeJS and NPM][6], for compiling Javascript resources in Rails'
 asset pipeline. This relieves the need for the Rails app to include "therubyracer"

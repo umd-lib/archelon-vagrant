@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = 'archelonlocal'
 
   config.vm.synced_folder "/apps/git/archelon-env", "/apps/git/archelon-env"
-  config.vm.synced_folder "/apps/git/archelon", "/apps/archelon/archelon"
+  config.vm.synced_folder "/apps/git/archelon", "/apps/archelon/src"
 
   # system packages
   config.vm.provision 'puppet'
@@ -34,8 +34,8 @@ Vagrant.configure(2) do |config|
   # mod_passenger
   config.vm.provision "shell", path: "scripts/passenger.sh"
   # Rails app config
-  config.vm.provision "file", source: 'files/archelon.env', destination: '/apps/archelon/archelon/.env'
-  config.vm.provision "file", source: 'files/seeds.rb', destination: '/apps/archelon/archelon/db/seeds/vagrant.rb'
+  config.vm.provision "file", source: 'files/archelon.env', destination: '/apps/archelon/src/.env'
+  config.vm.provision "file", source: 'files/seeds.rb', destination: '/apps/archelon/src/db/seeds/vagrant.rb'
   config.vm.provision "shell", path: "scripts/railsapp.sh", privileged: false
 
   # server specific values
