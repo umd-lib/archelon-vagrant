@@ -17,6 +17,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.synced_folder "/apps/git/archelon-env", "/apps/git/archelon-env"
   config.vm.synced_folder "/apps/git/archelon", "/apps/archelon/src"
+  config.vm.synced_folder "dist", "/apps/dist"
 
   # system packages
   config.vm.provision 'puppet'
@@ -28,9 +29,11 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: 'scripts/env.sh'
 
   # firewall
-  config.vm.provision 'shell', path: 'scripts/openports.sh', args: [80]
+  config.vm.provision 'shell', path: 'scripts/openports.sh', args: [80, 443]
   # Apache configuration
   config.vm.provision 'shell', path: 'scripts/apache.sh'
+  # create self-signed certificate for Apache
+  config.vm.provision "shell", path: "scripts/https-cert.sh"
   # mod_passenger
   config.vm.provision "shell", path: "scripts/passenger.sh"
   # Rails app config

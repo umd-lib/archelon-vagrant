@@ -27,7 +27,7 @@ echo "2. Ensure archelon app exists."
 ensure_git_repo /apps/git/archelon git@github.com:umd-lib/archelon.git || exit 1
 
 echo "3. Ensure solr is running"
-SOLR_STATUS_URL="http://192.168.40.11:8983/solr/admin/cores?action=STATUS&core=fedora4"
+SOLR_STATUS_URL="https://192.168.40.11:8984/solr/admin/cores?action=STATUS&core=fedora4"
 
 status=$(curl -k $SOLR_STATUS_URL -s -w "%{http_code}" -o /dev/null)
 

@@ -3,5 +3,16 @@
 # SERVER ENVIRONMENT
 
 export SERVER_NAME=archelonlocal
+export IP_ADDRESS=192.168.40.14
 export SERVICE_USER=vagrant
 export SERVICE_GROUP=vagrant
+
+# Apache variables
+export SSL_CERT_NAME=archelonlocal.crt
+export SSL_CERT_CHAIN_FILE_NAME=
+export SSL_KEY_NAME=archelonlocal.key
+
+# set trusted SSL certificates for Archelon's HTTPS connections
+# this is only needed for archelonlocal
+# must set this here and not in Archelon's .env file for some reason
+export SSL_CERT_FILE=/apps/archelon/ssl/solrlocal.pem
