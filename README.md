@@ -59,3 +59,8 @@ or similar gems in its Gemfile.
 [4]: https://atlas.hashicorp.com/peichman-umd/boxes/ruby/versions/1.0.0
 [5]: https://www.phusionpassenger.com/
 [6]: https://www.phusionpassenger.com/library/walkthroughs/deploy/ruby/ownserver/apache/oss/install_language_runtime.html#optional-install-node-js-if-you-re-using-rails
+
+## License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (Apache 2.0).
+
