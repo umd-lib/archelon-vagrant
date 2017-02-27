@@ -11,18 +11,38 @@ Vagrant.configure(2) do |config|
 
   config.vm.box = "peichman-umd/ruby"
 
-  config.vm.network "forwarded_port", guest: 80, host: 8000
+  config.vm.network "private_network", ip: "192.168.40.14"
 
-  # config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.hostname = 'archelonlocal'
 
-  config.vm.synced_folder "/apps/git/fcrepo-search", "/apps/services/fcrepo-search"
+  config.vm.synced_folder "/apps/git/archelon-env", "/apps/git/archelon-env"
+  config.vm.synced_folder "/apps/git/archelon", "/apps/archelon/src"
+  config.vm.synced_folder "dist", "/apps/dist"
 
-  config.vm.provision "shell", inline: "yum -y install git"
+  # system packages
+  config.vm.provision 'puppet'
 
-  config.vm.provision "shell", path: "scripts/passenger.sh", privileged: true
-  config.vm.provision "shell", path: "scripts/nodejs.sh", privileged: true
-  config.vm.provision "shell", path: "scripts/firewall.sh", privileged: true
-  config.vm.provision "file", source: 'files/fcrepo-search.env', destination: '/apps/services/fcrepo-search/.env'
-  config.vm.provision "file", source: 'files/seeds.rb', destination: '/apps/services/fcrepo-search/db/seeds/vagrant.rb'
+  # git config
+  config.vm.provision 'shell', path: 'scripts/git.sh', args: [`git config user.name`, `git config user.email`],
+    privileged: false
+  # runtime environment
+  config.vm.provision 'shell', path: 'scripts/env.sh'
+
+  # firewall
+  config.vm.provision 'shell', path: 'scripts/openports.sh', args: [80, 443]
+  # Apache configuration
+  config.vm.provision 'shell', path: 'scripts/apache.sh'
+  # create self-signed certificate for Apache
+  config.vm.provision "shell", path: "scripts/https-cert.sh"
+  # mod_passenger
+  config.vm.provision "shell", path: "scripts/passenger.sh"
+  # Rails app config
+  config.vm.provision "file", source: 'files/archelon.env', destination: '/apps/archelon/src/.env'
+  config.vm.provision "file", source: 'files/seeds.rb', destination: '/apps/archelon/src/db/seeds/vagrant.rb'
   config.vm.provision "shell", path: "scripts/railsapp.sh", privileged: false
+
+  # server specific values
+  config.vm.provision 'file', source: 'files/env', destination: '/apps/archelon/config/env'
+  # application startup
+  config.vm.provision 'shell', inline: 'cd /apps/archelon/apache && ./control start', privileged: false
 end
