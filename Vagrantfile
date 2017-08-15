@@ -34,6 +34,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: 'scripts/apache.sh'
   # create self-signed certificate for Apache
   config.vm.provision "shell", path: "scripts/https-cert.sh"
+  # NodeJS
+  config.vm.provision "shell", path: "scripts/nodejs.sh"
   # mod_passenger
   config.vm.provision "shell", path: "scripts/passenger.sh"
   # Rails app config
