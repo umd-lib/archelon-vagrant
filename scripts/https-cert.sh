@@ -36,6 +36,7 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1 = ${HOSTNAME}
 DNS.2 = localhost
+DNS.3 = downloadslocal
 IP.1  = ${IP_ADDRESS}
 IP.2  = 127.0.0.1
 END

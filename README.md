@@ -34,7 +34,22 @@ run `vagrant up`
 > vagrant up
 ```
 
-You should be able to access the Archelon app at <http://192.168.44.14>.
+Create a user account using a Rake task:
+
+```
+> vagrant ssh
+> cd /apps/archelon/src
+> rake 'db:add_admin_cas_user[your_directory_id, Your Name]' RAILS_ENV=vagrant
+```
+
+For full access to all features, add the hostnames `archelonlocal` and 
+`downloadslocal` to your host machine's `/etc/hosts` file:
+
+```
+192.168.40.14 archelonlocal downloadslocal
+```
+
+You should now be able to access the Archelon app at <https://archelonlocal>
 
 ## Details
 
