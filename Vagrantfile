@@ -45,6 +45,9 @@ Vagrant.configure(2) do |config|
 
   # server specific values
   config.vm.provision 'file', source: 'files/env', destination: '/apps/archelon/config/env'
+  # XXX: workaround for https://github.com/mitchellh/vagrant/issues/8096
+  # force the IP address of the private network interface
+  config.vm.provision 'shell', inline: 'ip addr replace 192.168.40.14 dev enp0s8', run: 'always'
   # application startup
   config.vm.provision 'shell', inline: 'cd /apps/archelon/apache && ./control start', privileged: false
 end
